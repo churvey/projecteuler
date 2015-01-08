@@ -11,50 +11,40 @@
 #include "next_prime_range.hpp"
 #include <cmath>
 
-next_prime_range::next_prime_range(ll n):base(n){
-	ind = base;
-
-	range = (ll)sqrt(base);
-	if(range<1e7)range = 1e7;
-
-	vector<bool> primes(range,true);
-	base_primes.reserve(range);
-	primes[0]=false;
-	primes[1]=false;
+next_prime_range::next_prime_range(ll n):range(n){
+	ind = base = 0;
+	base_primes.resize(range,true);
+	base_primes[0]=false;
+	base_primes[1]=false;
 	for(ll i=2;true;++i){
-		if(!primes[i]) continue;
-		ll p = primes.size()/i;
+		if(!base_primes[i]) continue;
+		ll p = base_primes.size()/i;
 		if(p<i) break;
-		while(p>=i) {primes[i*p]=false;--p;}
+        ll p2 = p*i;
+		while(p2>i) {base_primes[p2]=false;p2-=i;}
 	}
-	for(ll i=0;i<primes.size();++i){
-		if(primes[i]) base_primes.push_back(i);
-	}
-	base_primes.shrink_to_fit();
+    max_base = range-1;
+    while(!base_prime[max_base])--max_base;
 }
 next_prime_range::next_prime_range(){
-	new (this) next_prime_range(0);
+	new (this) next_prime_range((ll)le7);
 }
-
+next_prime_range::get_range(){
+    return range;
+}
 bool next_prime_range::is_prime(ll n){
-	if(n<=base_primes.back()|| (n>=base && n<base+range)){
-		return next(n)==n;
-	}else{
-		for(auto i:base_primes){
-			if(n%i==0) return false;
-			ll p=n/i;
-			if(p<i) return true;
-		}
-		return true;
-	}
+	// this will also change ind;
+    return next(n)==n;
 
 }
 ll next_prime_range::next(){
-	if(ind<=base_primes.back()){
-		 ll rs = *lower_bound(base_primes.begin(),base_primes.end(),ind);
-		 ind = rs+1;
-		 return rs;
+    if(ind>max_base*max_base){
+        new(this)next_prime_range((ll)2*sqrt(ind));
+    }
+	while(ind<base_primes.size() && !base_primes[ind]){
+        ++ind;
 	}
+    if(ind<base_primes.size()) return ind++;
 	if(ind>=range_primes.size()+base || ind<base){
 		base = ind;
 		range_primes.clear();
@@ -82,25 +72,4 @@ ll next_prime_range::next(ll n){
 	ind = n;
 	return next();
 }
-vector<ll> next_prime_range::next_primes(ll n,ui size){
-	vector<ll> tmp;
-	tmp.reserve(size);
-	if(n<=base_primes.back()){
-		auto itr = lower_bound(base_primes.begin(),base_primes.end(),n);
-		auto itr2 = itr;
-		if(size<=distance(itr,base_primes.end()))
-			advance(itr2,size);
-		else itr2 = base_primes.end();
-		copy(itr,itr2,back_inserter(tmp));
-	}
-//	if(tmp.size()==size) return tmp;
-	ind = base_primes.back()+1;
-	if(ind<n)ind=n;
-	while(tmp.size()<size){
-		tmp.push_back(next());
-	}
-	return tmp;
-}
-vector<ll> next_prime_range::next_primes(ui size){
-	return next_primes(0,size);
-}
+

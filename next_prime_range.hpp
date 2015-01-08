@@ -22,15 +22,14 @@ public:
 	next_prime_range();
 	ll next();
 	ll next(ll);
-	vector<ll> next_primes(ll,ui);
-	vector<ll> next_primes(ui);
 	bool is_prime(ll);
+    ll get_range();
 private:
 	ll base;
 	ui range;
-//	ll cur;
+    ll max_base;
 	ll ind;
-	vector<ui> base_primes;
+	vector<bool> base_primes;
 	vector<bool> range_primes;
 };
 

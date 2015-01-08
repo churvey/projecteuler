@@ -6,10 +6,35 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		6549689C1A5E1F9B00C034FA /* factor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = factor.cpp; sourceTree = "<group>"; };
+		6549689D1A5E1F9B00C034FA /* factor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = factor.hpp; sourceTree = "<group>"; };
+		6549689E1A5E1F9B00C034FA /* fibonacci.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fibonacci.cpp; sourceTree = "<group>"; };
+		6549689F1A5E1F9B00C034FA /* fibonacci.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = fibonacci.hpp; sourceTree = "<group>"; };
+		654968A01A5E1F9B00C034FA /* large_mod.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = large_mod.cpp; sourceTree = "<group>"; };
+		654968A11A5E1F9B00C034FA /* large_mod.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = large_mod.hpp; sourceTree = "<group>"; };
+		654968A21A5E1F9B00C034FA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		654968A31A5E1F9B00C034FA /* next_prime_range.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = next_prime_range.cpp; sourceTree = "<group>"; };
+		654968A41A5E1F9B00C034FA /* next_prime_range.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = next_prime_range.hpp; sourceTree = "<group>"; };
+		654968A51A5E1F9B00C034FA /* util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
+		654968A61A5E1F9B00C034FA /* util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = util.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		654968951A5E1ED900C034FA = {
 			isa = PBXGroup;
 			children = (
+				6549689C1A5E1F9B00C034FA /* factor.cpp */,
+				6549689D1A5E1F9B00C034FA /* factor.hpp */,
+				6549689E1A5E1F9B00C034FA /* fibonacci.cpp */,
+				6549689F1A5E1F9B00C034FA /* fibonacci.hpp */,
+				654968A01A5E1F9B00C034FA /* large_mod.cpp */,
+				654968A11A5E1F9B00C034FA /* large_mod.hpp */,
+				654968A21A5E1F9B00C034FA /* main.cpp */,
+				654968A31A5E1F9B00C034FA /* next_prime_range.cpp */,
+				654968A41A5E1F9B00C034FA /* next_prime_range.hpp */,
+				654968A51A5E1F9B00C034FA /* util.cpp */,
+				654968A61A5E1F9B00C034FA /* util.hpp */,
 			);
 			sourceTree = "<group>";
 		};
