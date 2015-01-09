@@ -12,24 +12,28 @@
 #include <cmath>
 
 next_prime_range::next_prime_range(ll n):range(n){
-	ind = base = 0;
-	base_primes.resize(range,true);
-	base_primes[0]=false;
-	base_primes[1]=false;
-	for(ll i=2;true;++i){
-		if(!base_primes[i]) continue;
-		ll p = base_primes.size()/i;
-		if(p<i) break;
+	//ind = base = 0;
+    init();
+}
+void next_prime_range::init(){
+    base_primes.resize(range,true);
+    base_primes[0]=false;
+    base_primes[1]=false;
+    for(ll i=2;true;++i){
+        if(!base_primes[i]) continue;
+        ll p = base_primes.size()/i;
+        if(p<i) break;
         ll p2 = p*i;
-		while(p2>i) {base_primes[p2]=false;p2-=i;}
-	}
+        while(p2>i) {base_primes[p2]=false;p2-=i;}
+    }
     max_base = range-1;
-    while(!base_prime[max_base])--max_base;
+    while(!base_primes[max_base])--max_base;
 }
 next_prime_range::next_prime_range(){
-	new (this) next_prime_range((ll)le7);
+    range = (ll)1e7;
+    init();
 }
-next_prime_range::get_range(){
+ll next_prime_range::get_range(){
     return range;
 }
 bool next_prime_range::is_prime(ll n){
@@ -39,7 +43,12 @@ bool next_prime_range::is_prime(ll n){
 }
 ll next_prime_range::next(){
     if(ind>max_base*max_base){
-        new(this)next_prime_range((ll)2*sqrt(ind));
+        ll tmp = ind;
+        range = ceil(sqrt(ind));
+        if(range < 1e7) range*=2;
+        else range+=1e7;
+        init();
+        ind = tmp;
     }
 	while(ind<base_primes.size() && !base_primes[ind]){
         ++ind;
@@ -50,10 +59,11 @@ ll next_prime_range::next(){
 		range_primes.clear();
 		range_primes.resize((ll)range,true);
 	//	cout<<"base:"<<base<<endl;
-		for(ui i:base_primes){
+        for(ll i=0;i<base_primes.size();++i){
+            if(!base_primes[i])continue;
 			ll p1 = ceil(base/(double)i);
 			if(p1<i) p1=i;
-			ui p2 = p1*i-base;
+			ll p2 = p1*i-base;
 			if(p2>=range_primes.size()) break;
 			while(p2<range_primes.size()){
 				range_primes[p2]=false;
@@ -71,5 +81,9 @@ ll next_prime_range::next(){
 ll next_prime_range::next(ll n){
 	ind = n;
 	return next();
+}
+void next_prime_range::set_range(ll n){
+    range = n;
+    init();
 }
 

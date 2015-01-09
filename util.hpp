@@ -26,7 +26,7 @@
 #include<cstring>
 
 using namespace std;
-typedef size_t ll;
+typedef unsigned long long ll;
 typedef long long sll;
 typedef long double ld;
 

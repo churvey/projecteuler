@@ -11,18 +11,18 @@
 #include<algorithm>
 #include<iostream>
 #include<cmath>
+#include<unordered_map>
+#include<memory>
 #include"next_prime_range.hpp"
 using namespace std;
-typedef size_t ll;
 
 class factor{
 	public:
-	vector<pair<ll,ll>> get(ll n);
-	ll euler(ll n);
-	void print();
+        factor(ll n);
+        factor();
+        unordered_map<ll,ll> get(ll n);
 	private:
-	static	next_prime_range npr;
-	vector<pair<ll,ll>> last;
+        unique_ptr<next_prime_range> npr;
 };
 
 

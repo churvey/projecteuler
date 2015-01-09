@@ -10,7 +10,7 @@
 #include<iostream>
 using namespace std;
 
-typedef size_t ll;
+typedef unsigned long long ll;
 
 class large_mod{
 	private:

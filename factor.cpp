@@ -9,35 +9,32 @@
 
 #include"factor.hpp"
 
-next_prime_range factor::npr;
-vector<pair<ll,ll>> factor::get(ll n)
+factor::factor(){
+    npr=unique_ptr<next_prime_range>(new next_prime_range());
+}
+
+factor::factor(ll n){
+    npr=unique_ptr<next_prime_range>(new next_prime_range(n));
+}
+
+unordered_map<ll,ll> factor::get(ll n)
 {
-	vector<pair<ll,ll>> rs;
-	ll p=npr.next(0);
-	while(n!=1){
+	unordered_map<ll,ll>  rs(20);
+	ll p=npr->next(0);
+	while(p*p<=n){
 		ll po = 0;
 		while(n%p==0){
-
+            n/=p;
+            po++;
 		}
-		if(po!=0)rs.emplace_back(p,po);
-		p=npr.next();
+        if(po!=0){
+            rs[p]=po;
+        //    cout<<p<<" "<<po<<endl;
+        }
+		p=npr->next();
 	}
-	last = rs;
+    if(n!=1)
+        rs[n]=1;
 	return rs;
 }
 
-ll factor::euler(ll n){
-	auto rs = get(n);
-	ll lrs = 1;
-	for(auto p:rs){
-		lrs*=(pow(p.first,p.second+1)-1)/(p.first-1);
-	}
-	return lrs;
-}
-
-void factor::print(){
-	for(auto p:last){
-		cout<<"("<<p.first<<","<<p.second<<")";
-	}
-	cout<<endl;
-}

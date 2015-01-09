@@ -24,9 +24,11 @@ public:
 	ll next(ll);
 	bool is_prime(ll);
     ll get_range();
+    void set_range(ll n);
 private:
+    void init();
 	ll base;
-	ui range;
+	ll range;
     ll max_base;
 	ll ind;
 	vector<bool> base_primes;
