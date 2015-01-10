@@ -14,12 +14,12 @@ factor::factor(){
 }
 
 factor::factor(ll n){
-    npr=unique_ptr<next_prime_range>(new next_prime_range(n));
+    npr=unique_ptr<next_prime_range>(new next_prime_range(ceil(sqrt(n))));
 }
 
 unordered_map<ll,ll> factor::get(ll n)
 {
-	unordered_map<ll,ll>  rs(20);
+	unordered_map<ll,ll>  rs(37);
 	ll p=npr->next(0);
 	while(p*p<=n){
 		ll po = 0;

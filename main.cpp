@@ -31,15 +31,17 @@
 using namespace std;
 
 void get_rs_451();
+void test_factor();
 
 typedef unsigned long long ll;
 typedef long long sll;
 typedef long double ld;
 
 
+
 int main()
 {
-    get_rs_451();
+    test_factor();
 }
 
 

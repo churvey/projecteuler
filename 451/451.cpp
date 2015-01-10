@@ -94,7 +94,6 @@ void get_rs_451(){
 		check(m3,i+1);
 		m3 = move(m4);
     }
-
     cout<<count2<<endl;
     rs+=2*1e7-count2;
     cout<<rs<<endl;
