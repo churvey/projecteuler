@@ -28,8 +28,9 @@
 #include"fibonacci.hpp"
 #include"next_prime_range.hpp"
 #include"large_mod.hpp"
-#include"451/451.cpp"
 using namespace std;
+
+void get_rs_451();
 
 typedef unsigned long long ll;
 typedef long long sll;
@@ -38,7 +39,7 @@ typedef long double ld;
 
 int main()
 {
-    get_rs();
+    get_rs_451();
 }
 
 

@@ -15,11 +15,12 @@ because
 Let I(n) be the largest positive number m smaller than n-1 such that the modular inverse of m modulo n equals m itself.
 So I(15)=11.
 Also I(100)=51 and I(7)=1.
-Find ∑I(n) for 3≤n≤2·107
+Find 閳厲(n) for 3閳様閳拷2璺�107
 https://projecteuler.net/problem=451
  *
  *
 ***/
+
 #include<iostream>
 #include<string>
 #include<unordered_map>
@@ -37,50 +38,67 @@ https://projecteuler.net/problem=451
 #include<algorithm>
 #include<complex>
 #include<cstring>
-#include"fibonacci.hpp"
-#include"next_prime_range.hpp"
-#include"large_mod.hpp"
-#include "factor.hpp"
+#include"../factor.hpp"
+#define L 20000000
 using namespace std;
 
 vector<bool> vb(2*1e7+1);
 ll count2 = 2;
 ll rs = 0;
-void check(unordered_map<ll, ll>& m1,ll cur,ll n){
+void check(const unordered_map<ll, ll>& m1,ll n){
     
-    ll x=(n-1)*(n+1)/cur;
- //   cout<<n<<" "<<cur<<" "<<x<<endl;
-    if(x<2*n) return;
-    if(x<vb.size() && !vb[x]){
-        vb[x]=true;
-        rs+=x-n;
-        count2++;
-    }
-    for(auto& itr1:m1){
-        if(itr1.second!=0){
-            itr1.second--;
-            check(m1,cur*itr1.first,n);
-            itr1.second++;
-        }
-    }
+	ll t = (n-1)*(n+1);
+    ll x = t/(2*n);
+    vector<ll> f;
+	f.push_back(1);
+	for(auto itr:m1){
+		ll p = 1;
+		ll s = f.size();
+		for(ll i=0;i<itr.second;++i){
+			p*=itr.first;
+			for(ll j=0;j<s;++j){
+				ll ne = f[j]*p;
+				if(ne <= x)
+				f.push_back(ne);
+			}
+		}
+	}
+	for(auto itr:f){
+		auto v = t/itr;
+		if(v<vb.size() && !vb[v]){
+			vb[v]=true;
+			rs+=(v-n);
+			count2++;
+		}
+	}
 
 }
 
-void get_rs(){
+void get_rs_451(){
     cout<<"451:"<<endl;
     auto time_begin = chrono::high_resolution_clock::now();
-    
-    
-   
-    factor f(1e4);
-//    next_prime_range npr(1e4);
-    for(ll i=3;i<=1e5;++i){
-        auto m = f.get(i*i-1);
-      //  check(m,1,i);
-        cout<<i<<" "<<count2-2<<endl;
+    factor f(1e7+2);
+    auto m = f.get(2);
+    auto m3 = f.get(3);
+    for(ll i=3;i<=1e7;i+=2){
+    	auto m2 = f.get(i+1);
+    	for(auto itr:m2){
+    		m[itr.first]+=itr.second;
+    	}
+    	check(m,i);
+    	m = move(m2);
+    	auto m4 = f.get(i+2);
+    	for(auto itr:m4){
+			m3[itr.first]+=itr.second;
+		}
+		check(m3,i+1);
+		m3 = move(m4);
     }
-    rs+=1e7-count2;
+
+    cout<<count2<<endl;
+    rs+=2*1e7-count2;
     cout<<rs<<endl;
     auto time_end = chrono::high_resolution_clock::now();
     cout<<"time_cost: "<<chrono::duration_cast<chrono::milliseconds>(time_end-time_begin).count()<<" ms"<<endl;
 }
+
