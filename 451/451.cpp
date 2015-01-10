@@ -38,7 +38,7 @@ https://projecteuler.net/problem=451
 #include<algorithm>
 #include<complex>
 #include<cstring>
-#include"../factor.hpp"
+#include"factor.hpp"
 #define L 20000000
 using namespace std;
 
