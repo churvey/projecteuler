@@ -10,31 +10,61 @@
 #include"factor.hpp"
 
 factor::factor(){
-    npr=unique_ptr<next_prime_range>(new next_prime_range());
+    sieve.resize(1e7);
+    for(ll p=2;p<sieve.size();++p){
+    	if(sieve[p]==0){
+    		for(ll i=p;i<sieve.size();i+=p){
+    			sieve[i]=p;
+    		}
+    	}
+    }
 }
 
 factor::factor(ll n){
-    npr=unique_ptr<next_prime_range>(new next_prime_range(ceil(sqrt(n))));
+    sieve.resize(n);
+	for(ll p=2;p<sieve.size();++p){
+		if(sieve[p]==0){
+			for(ll i=p;i<sieve.size();i+=p){
+				sieve[i]=p;
+			}
+		}
+	 }
 }
 
 unordered_map<ll,ll> factor::get(ll n)
 {
 	unordered_map<ll,ll>  rs(37);
-	ll p=npr->next(0);
-	while(p*p<=n){
-		ll po = 0;
-		while(n%p==0){
-            n/=p;
-            po++;
-		}
-        if(po!=0){
-            rs[p]=po;
-        //    cout<<p<<" "<<po<<endl;
-        }
-		p=npr->next();
+	while(n!=1){
+		ll p = sieve[n];
+		rs[p]++;
+		n/=p;
 	}
-    if(n!=1)
-        rs[n]=1;
 	return rs;
 }
 
+ll factor::factor_count(ll n){
+	auto f = get(n);
+	ll rs = 1;
+	for(auto itr:f){
+		rs*=(itr.second+1);
+	}
+	return rs;
+}
+
+vector<ll>  factor::get_factors(ll n){
+	auto f = get(n);
+	vector<ll> rs;
+	rs.push_back(1);
+	for(auto itr:f){
+		ll p = 1;
+		ll s = rs.size();
+		for(ll i=0;i<itr.second;++i){
+			p*=itr.first;
+			for(ll j=0;j<s;++j){
+				rs.push_back(rs[j]*p);
+			}
+		}
+	}
+	sort(rs.begin(),rs.end());
+	return rs;
+}

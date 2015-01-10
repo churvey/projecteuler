@@ -21,8 +21,10 @@ class factor{
         factor(ll n);
         factor();
         unordered_map<ll,ll> get(ll n);
+        ll factor_count(ll n);
+        vector<ll> get_factors(ll n);
 	private:
-        unique_ptr<next_prime_range> npr;
+        vector<ll> sieve;
 };
 
 
