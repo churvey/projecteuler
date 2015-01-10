@@ -39,7 +39,7 @@ https://projecteuler.net/problem=451
 #include<complex>
 #include<cstring>
 #include"../factor.hpp"
-
+#define L 20000000
 using namespace std;
 
 vector<bool> vb(2*1e7+1);
@@ -93,7 +93,6 @@ void get_rs_451(){
 		}
 		check(m3,i+1);
 		m3 = move(m4);
-    	cout<<i<<endl;
     }
 
     cout<<count2<<endl;
